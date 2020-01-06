@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2020 at 07:26 AM
+-- Generation Time: Jan 06, 2020 at 07:29 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.1.33
 
@@ -35,13 +35,6 @@ CREATE TABLE `tb_admin` (
   `id_pegawai` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tb_admin`
---
-
-INSERT INTO `tb_admin` (`id_admin`, `user_admin`, `pass_admin`, `id_pegawai`) VALUES
-(92, 'admin', 'admin', 103);
-
 -- --------------------------------------------------------
 
 --
@@ -56,13 +49,6 @@ CREATE TABLE `tb_barang` (
   `banyak` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tb_barang`
---
-
-INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `jenis_barang`, `harga_barang`, `banyak`) VALUES
-(57, 'Roti', 'Makanan', 1000, -534);
-
 -- --------------------------------------------------------
 
 --
@@ -74,13 +60,6 @@ CREATE TABLE `tb_pegawai` (
   `nama_pegawai` varchar(21) DEFAULT NULL,
   `gender_pegawai` varchar(21) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_pegawai`
---
-
-INSERT INTO `tb_pegawai` (`id_pegawai`, `nama_pegawai`, `gender_pegawai`) VALUES
-(103, 'Brilyan', 'Pria');
 
 -- --------------------------------------------------------
 
@@ -95,29 +74,6 @@ CREATE TABLE `tb_transaksi` (
   `banyak` int(11) DEFAULT NULL,
   `total_harga` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_transaksi`
---
-
-INSERT INTO `tb_transaksi` (`id_transaksi`, `id_barang`, `id_pegawai`, `banyak`, `total_harga`) VALUES
-(91, 57, 103, 80, 80000),
-(92, 57, 103, 2, 2000),
-(93, 57, 103, 4, 4000),
-(94, 57, 103, 5, 5000),
-(95, 57, 103, 6, 6000),
-(96, 57, 103, 3, 3000),
-(97, 57, 103, 5, 5000),
-(98, 57, 103, 6, 6000),
-(99, 57, 103, 2, 2000),
-(100, 57, 103, 80, 80000),
-(101, 57, 103, 9, 9000),
-(102, 57, 103, 8, 8000),
-(103, 57, 103, 100, 100000),
-(104, 57, 103, 10, 10000),
-(105, 57, 103, 99, 99000),
-(106, 57, 103, 90, 90000),
-(107, 57, 103, 100, 100000);
 
 --
 -- Triggers `tb_transaksi`
