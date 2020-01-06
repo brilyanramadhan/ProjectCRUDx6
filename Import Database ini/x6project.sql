@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 04, 2020 at 10:41 PM
+-- Generation Time: Jan 06, 2020 at 07:25 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.1.33
 
@@ -35,6 +35,13 @@ CREATE TABLE `tb_admin` (
   `id_pegawai` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_admin`
+--
+
+INSERT INTO `tb_admin` (`id_admin`, `user_admin`, `pass_admin`, `id_pegawai`) VALUES
+(92, 'admin', 'admin', 103);
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +56,13 @@ CREATE TABLE `tb_barang` (
   `banyak` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_barang`
+--
+
+INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `jenis_barang`, `harga_barang`, `banyak`) VALUES
+(57, 'Roti', 'Makanan', 1000, -534);
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +74,13 @@ CREATE TABLE `tb_pegawai` (
   `nama_pegawai` varchar(21) DEFAULT NULL,
   `gender_pegawai` varchar(21) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_pegawai`
+--
+
+INSERT INTO `tb_pegawai` (`id_pegawai`, `nama_pegawai`, `gender_pegawai`) VALUES
+(103, 'Brilyan', 'Pria');
 
 -- --------------------------------------------------------
 
@@ -76,8 +97,37 @@ CREATE TABLE `tb_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `tb_transaksi`
+--
+
+INSERT INTO `tb_transaksi` (`id_transaksi`, `id_barang`, `id_pegawai`, `banyak`, `total_harga`) VALUES
+(91, 57, 103, 80, 80000),
+(92, 57, 103, 2, 2000),
+(93, 57, 103, 4, 4000),
+(94, 57, 103, 5, 5000),
+(95, 57, 103, 6, 6000),
+(96, 57, 103, 3, 3000),
+(97, 57, 103, 5, 5000),
+(98, 57, 103, 6, 6000),
+(99, 57, 103, 2, 2000),
+(100, 57, 103, 80, 80000),
+(101, 57, 103, 9, 9000),
+(102, 57, 103, 8, 8000),
+(103, 57, 103, 100, 100000),
+(104, 57, 103, 10, 10000),
+(105, 57, 103, 99, 99000),
+(106, 57, 103, 90, 90000),
+(107, 57, 103, 100, 100000);
+
+--
 -- Triggers `tb_transaksi`
 --
+DELIMITER $$
+CREATE TRIGGER `settmp` AFTER INSERT ON `tb_transaksi` FOR EACH ROW BEGIN
+INSERT INTO temporary(id_transaksi, id_barang, id_pegawai, banyak, total_harga) VALUES (new.id_transaksi, new.id_barang, new.id_pegawai, new.banyak, new.total_harga);
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `stok_kurang` AFTER INSERT ON `tb_transaksi` FOR EACH ROW BEGIN
 	UPDATE tb_barang SET banyak=banyak-new.banyak
@@ -85,6 +135,20 @@ CREATE TRIGGER `stok_kurang` AFTER INSERT ON `tb_transaksi` FOR EACH ROW BEGIN
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `temporary`
+--
+
+CREATE TABLE `temporary` (
+  `id_transaksi` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
+  `banyak` int(11) NOT NULL,
+  `total_harga` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -118,6 +182,14 @@ ALTER TABLE `tb_transaksi`
   ADD KEY `id_pegawai` (`id_pegawai`);
 
 --
+-- Indexes for table `temporary`
+--
+ALTER TABLE `temporary`
+  ADD KEY `id_transaksi` (`id_transaksi`),
+  ADD KEY `id_barang` (`id_barang`),
+  ADD KEY `id_pegawai` (`id_pegawai`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -125,25 +197,25 @@ ALTER TABLE `tb_transaksi`
 -- AUTO_INCREMENT for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `tb_barang`
 --
 ALTER TABLE `tb_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `tb_pegawai`
 --
 ALTER TABLE `tb_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- Constraints for dumped tables
