@@ -149,13 +149,15 @@ public class GuiSupermarket {
                     cek = true;
                 }
                 else if("n".equals(pil1)){
+                    showTransaksiPgw();
                     cek = false;
+                    clear();
                 }
             }
         }else if(pil == 2){
             boolean cek = true;
             while(cek){
-                showTransaksiPgw();
+                showTransaksi();
                 System.out.println("Id Transaksi :");
                 String id = in.next();
                 dbt.del_transaksi(dbc, id);
@@ -196,15 +198,27 @@ public class GuiSupermarket {
         } catch (Exception e) {
         }
     }
+    private void clear(){
+        String sql = "delete from temporary";
+        Connection cn = dbc.dbCon;
+        try {
+            PreparedStatement st = cn.prepareStatement(sql);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
     private void showTransaksiPgw(){
-        String sql = "SELECT tb_transaksi.id_transaksi, tb_barang.nama_barang, tb_transaksi.banyak, tb_barang.harga_barang, tb_pegawai.nama_pegawai,tb_transaksi.total_harga FROM ((tb_transaksi INNER JOIN tb_pegawai ON tb_transaksi.id_pegawai = tb_pegawai.id_pegawai) INNER JOIN tb_barang ON tb_transaksi.id_barang = tb_barang.id_barang) WHERE nama_pegawai = '"+getThisN()+"'";
+        String sql = "SELECT temporary.id_transaksi, tb_barang.nama_barang, temporary.banyak, tb_barang.harga_barang, tb_pegawai.nama_pegawai,temporary.total_harga FROM ((temporary INNER JOIN tb_pegawai ON temporary.id_pegawai = tb_pegawai.id_pegawai) INNER JOIN tb_barang ON temporary.id_barang = tb_barang.id_barang) WHERE nama_pegawai = '"+getThisN()+"'";
+        String tot = "select sum(total_harga) as 'bayar' from temporary";
         try {
             Connection cn = dbc.dbCon;
+            Statement sth = cn.createStatement();
+            ResultSet rsh = sth.executeQuery(tot);
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             System.out.println("--------------------------------------------------------------------------------------------------------------------------");
             String header = "%10s %20s %20s %20s %20s %20s";
-            System.out.println(String.format(header, "Id Transaksi", "Nama Pegawai", "Nama", "Harga Satuan", "Banyak", "Total Harga"));
+            System.out.println(String.format(header, "Id", "Nama Pegawai", "Nama", "Harga Satuan", "Banyak", "Total Harga"));
             System.out.println("--------------------------------------------------------------------------------------------------------------------------");
             while(rs.next()){
                 String id = rs.getString("id_transaksi");
@@ -215,6 +229,13 @@ public class GuiSupermarket {
                 String harga = rs.getString("total_harga");
                 String output = "%10s %20s %20s %20s %20s %20s";
                 System.out.println(String.format(output, id, namapgw, nama, satuan, banyak, harga));
+            }
+            while(rsh.next()){
+                String harga_tot = rsh.getString("bayar");
+                System.out.println("\n");
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("                                                                                        Total Pembayaran : "+harga_tot);
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------");
             }
         } catch (Exception e) {
         }
@@ -227,7 +248,7 @@ public class GuiSupermarket {
             ResultSet rs = st.executeQuery(sql);
             System.out.println("--------------------------------------------------------------------------------------------------------------------------");
             String header = "%10s %20s %20s %20s %20s %20s";
-            System.out.println(String.format(header, "Id Transaksi", "Nama Pegawai", "Nama", "Harga Satuan", "Banyak", "Total Harga"));
+            System.out.println(String.format(header, "Id", "Nama Pegawai", "Nama", "Harga Satuan", "Banyak", "Total Harga"));
             System.out.println("--------------------------------------------------------------------------------------------------------------------------");
             while(rs.next()){
                 String id = rs.getString("id_transaksi");

@@ -20,24 +20,23 @@ public class DbTransaksi extends BaseTransaksi{
     public void newTransaksi(DbConnection db, String nama, String banyak) {
         Connection conn = db.dbCon;
         try {
-            String sql1 = "insert into tb_transaksi(banyak) values (?)";
-            PreparedStatement st1 = conn.prepareStatement(sql1);
-            st1.setString(1, banyak);
-            st1.executeUpdate();
-            String sql2 = "select * from tb_barang where nama_barang ='"+nama+"'";
+            String sql1 = "select * from tb_barang where nama_barang='"+nama+"'";
+            String sql2 = "select * from tb_pegawai where nama_pegawai='"+getPegawai()+"'";
+            String sql3 = "insert into tb_transaksi(id_barang, id_pegawai, banyak, total_harga) values(?,?,?,?)";
+            Statement st1 = conn.createStatement();
+            ResultSet rs1 = st1.executeQuery(sql1);
+            rs1.next();
             Statement st2 = conn.createStatement();
             ResultSet rs2 = st2.executeQuery(sql2);
             rs2.next();
-            String sql3 = "select * from tb_pegawai where nama_pegawai='"+getPegawai()+"'";
-            Statement st3 = conn.createStatement();
-            ResultSet rs3 = st3.executeQuery(sql3);
-            rs3.next();
-            PreparedStatement st4 = conn.prepareStatement("update tb_transaksi set id_barang=?, id_pegawai=?, total_harga=? where id_transaksi=LAST_INSERT_ID()");
-            st4.setString(1, rs2.getString("id_barang"));
-            st4.setString(2, rs3.getString("id_pegawai"));
-            Integer hargaBarang = Integer.valueOf(rs2.getString("harga_barang")) * Integer.valueOf(banyak);
-            st4.setString(3, hargaBarang.toString());
-            st4.executeUpdate();
+            PreparedStatement st3 = conn.prepareStatement(sql3);
+            st3.setString(1, rs1.getString("id_barang"));
+            st3.setString(2, rs2.getString("id_pegawai"));
+            st3.setString(3, banyak);
+            Integer total = Integer.valueOf(rs1.getString("harga_barang")) * Integer.valueOf(banyak);
+            st3.setString(4, total.toString());
+            st3.executeUpdate();
+            
         } catch (Exception e) {
             System.out.println(e+"db");
         }
