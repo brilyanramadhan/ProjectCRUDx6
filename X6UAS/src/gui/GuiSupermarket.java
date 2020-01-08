@@ -20,13 +20,15 @@ public class GuiSupermarket {
         return this.namaPegawai;
     }
     public void verify(){
-        System.out.println("Apakah anda merupakan Karyawan?");
+        System.out.println("");
+        System.out.println("VERIFIKASI PEGAWAI");
+        System.out.println("==================");
         System.out.println("1. Masuk");
         System.out.println("2. Daftar");
         int pil = in.nextInt();
         if(pil == 1){
             boolean cek = true;
-            while(cek == true){
+            while(cek){
                 System.out.println("Username :");
                 String username = in.next();
                 System.out.println("Password :");
@@ -66,7 +68,8 @@ public class GuiSupermarket {
         }
     }
     public void mainapp(){
-        System.out.println("Supermarket App v1.0");
+        System.out.println("");
+        System.out.println("SUPERMARKET APP V1.2");
         System.out.println("by X6");
         System.out.println("====================");
         System.out.println("1. Manajemen Barang");
@@ -81,8 +84,9 @@ public class GuiSupermarket {
     }
 
     public void manajemen() {
+        System.out.println("");
         System.out.println("Manajemen Barang");
-        System.out.println("----------------");
+        System.out.println("================");
         System.out.println("");
         System.out.println("Barang Terkini :");
         showBarang();
@@ -127,8 +131,9 @@ public class GuiSupermarket {
     }
     
     private void transaksi() {
+        System.out.println("");
         System.out.println("Transaksi");
-        System.out.println("---------");
+        System.out.println("=========");
         System.out.println("1. Transaksi Baru");
         System.out.println("2. Hapus Transaksi");
         System.out.println("3. Tampilkan Semua Transaksi");

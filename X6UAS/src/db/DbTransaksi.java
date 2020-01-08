@@ -38,7 +38,8 @@ public class DbTransaksi extends BaseTransaksi{
             st3.executeUpdate();
             
         } catch (Exception e) {
-            System.out.println(e+"db");
+            System.out.println("Input Tidak Valid");
+            System.out.println("");
         }
     }
 
