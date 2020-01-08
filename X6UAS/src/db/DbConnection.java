@@ -2,11 +2,6 @@
 package db;
 import base.*;
 import java.sql.*;
-
-/**
- *
- * @author brilyan
- */
 public class DbConnection implements BaseDb, BaseAdmin {
     public String dbName, dbUser, dbPass, userAdmin, passAdmin, sqlAdmin, namaPegawai, genderPegawai, sqlPegawai;
     public boolean cekLogin;

@@ -2,10 +2,6 @@
 package db;
 import java.sql.*;
 import base.BaseBarang;
-/**
- *
- * @author brilyan
- */
 public class DbBarang extends BaseBarang{
     @Override
     public void insert(DbConnection db, String namaBarang, String jenisBarang, String hargaBarang, String stockBarang) {

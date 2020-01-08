@@ -2,10 +2,6 @@
 package db;
 import base.*;
 import java.sql.*;
-/**
- *
- * @author brilyan
- */
 public class DbTransaksi extends BaseTransaksi{
     private String nama_pegawai;
     

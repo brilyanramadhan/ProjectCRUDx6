@@ -3,16 +3,14 @@ package gui;
 import db.*;
 import java.sql.*;
 import java.util.Scanner;
-/**
- *
- * @author brilyan
- */
 public class GuiSupermarket {
     DbConnection dbc = new DbConnection("x6project");
     DbBarang dbb = new DbBarang();
     DbTransaksi dbt = new DbTransaksi();
     Scanner in = new Scanner(System.in);
     private String namaPegawai;
+    private Integer stok;
+    
     private void setThisN(String nama){
         this.namaPegawai = nama;
     }
@@ -57,11 +55,11 @@ public class GuiSupermarket {
         } else if (pil == 2){
             System.out.println("Nama :");
             String nama = in.next();
-            System.out.println("Jenis Kelamin :");
+            System.out.println("Jenis Kelamin (L/P):");
             String gender = in.next();
-            System.out.println("Username :");
+            System.out.println("Username  (min 5 karakter) :");
             String username = in.next();
-            System.out.println("Password :");
+            System.out.println("Password  (min 5 karakter) :");
             String password = in.next();
             dbc.register(username, password, nama, gender);
             verify();
@@ -148,7 +146,6 @@ public class GuiSupermarket {
                 String nama = in.next();
                 System.out.println("Banyak Barang :");
                 String banyak = in.next();
-                dbt.newTransaksi(dbc, nama, banyak);
                 System.out.println("Lagi? (y/n)");
                 String pil1 = in.next();
                 if("y".equals(pil1)){
@@ -158,9 +155,9 @@ public class GuiSupermarket {
                     showTransaksiPgw();
                     cek = false;
                     clear();
-                    transaksi();
                 }
             }
+            transaksi();
         }else if(pil == 2){
             boolean cek = true;
             while(cek){
@@ -177,8 +174,10 @@ public class GuiSupermarket {
                     cek = false;
                 }
             }
+            transaksi();
         }else if(pil == 3){
             showTransaksi();
+            transaksi();
         }else{
             mainapp();
         }
