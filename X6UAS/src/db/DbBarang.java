@@ -26,7 +26,7 @@ public class DbBarang extends BaseBarang{
             }
             
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Input Data Gagal");
         }
     }
 
@@ -49,7 +49,7 @@ public class DbBarang extends BaseBarang{
             }
             
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Update Data Gagal");
         }
     }
 
@@ -67,7 +67,7 @@ public class DbBarang extends BaseBarang{
                System.out.println("Hapus Data Gagal");
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Hapus Data Gagal");
         }
     }
     

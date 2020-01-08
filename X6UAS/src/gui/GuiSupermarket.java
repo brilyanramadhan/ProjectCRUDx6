@@ -132,6 +132,7 @@ public class GuiSupermarket {
         System.out.println("1. Transaksi Baru");
         System.out.println("2. Hapus Transaksi");
         System.out.println("3. Tampilkan Semua Transaksi");
+        System.out.println("4. Kembali");
         dbt.setPegawai(getThisN());
         int pil = in.nextInt();
         if(pil == 1){
@@ -152,6 +153,7 @@ public class GuiSupermarket {
                     showTransaksiPgw();
                     cek = false;
                     clear();
+                    transaksi();
                 }
             }
         }else if(pil == 2){
@@ -172,6 +174,8 @@ public class GuiSupermarket {
             }
         }else if(pil == 3){
             showTransaksi();
+        }else{
+            mainapp();
         }
         
     }
